@@ -1,10 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Content.css";
 
 function Content() {
+  const navigate = useNavigate();
+  function changeLink()
+  {
+    
+    navigate('/movie')
+  }
   return (
-    <div className="content">
+    <div className="content" onClick={changeLink}>
       <div className="content__img">
         <img
           src="https://m.media-amazon.com/images/I/41CDZy4gDvL._AC_SY780_.jpg"
