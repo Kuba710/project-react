@@ -1,27 +1,39 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Content.css";
 
-function Content() {
+function Content(props) {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    axios.get(`https://at.usermd.net/api/movies/${props.data.id}`)
+      .then(res => {
+        setData(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [props])
   const navigate = useNavigate();
   function changeLink()
   {
     
-    navigate('/movie')
+    navigate(`/movie/${props.data.id}`)
+    
   }
   return (
     <div className="content" onClick={changeLink}>
       <div className="content__img">
         <img
-          src="https://m.media-amazon.com/images/I/41CDZy4gDvL._AC_SY780_.jpg"
+          src={data.image}
           alt="American Psycho"
         />
       </div>
       <div className="content__description">
-        <h1>American Psycho</h1>
+        <h1>{data.title}</h1>
         <h4>
-          American Psycho <span>2000</span>
+        <span>2000</span>
         </h4>
         <div className="content__rating">
           <img
